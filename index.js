@@ -24,8 +24,10 @@ app.use(
     cors({
         origin: (origin, callback) => {
             const allowed = [
+                "http://localhost:5173",
                 "http://localhost:5174",
-                 "https://my-portfolio-6x9e473w9-oluwaseyifunmi52s-projects.vercel.app", 
+                "https://my-portfolio-two-kohl-99.vercel.app",
+
             ];
             const isVercelPreview = origin && /^https:\/\/my-portfolio-.*\.vercel\.app$/.test(origin);
 
