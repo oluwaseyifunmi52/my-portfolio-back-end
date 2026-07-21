@@ -19,31 +19,29 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-// CORS
+
 app.use(
     cors({
-        origin: [
-            "http://localhost:5174",
-            "https://my-portfolio-two-kohl-99.vercel.app",
-        ],
+        origin: (origin, callback) => {
+            const allowed = [
+                "http://localhost:5174",
+                 "https://my-portfolio-6x9e473w9-oluwaseyifunmi52s-projects.vercel.app", 
+            ];
+            const isVercelPreview = origin && /^https:\/\/my-portfolio-.*\.vercel\.app$/.test(origin);
 
-        methods: [
-            "GET",
-            "POST",
-            "PUT",
-            "PATCH",
-            "DELETE",
-        ],
-
-        allowedHeaders: [
-            "Content-Type",
-            "Authorization",
-        ],
-
+            if (!origin || allowed.includes(origin) || isVercelPreview) {
+                callback(null, true);
+            } else {
+                callback(new Error("Not allowed by CORS"));
+            }
+        },
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+        allowedHeaders: ["Content-Type", "Authorization"],
         credentials: true,
     })
 );
 
+     
 // Body parser
 app.use(express.json());
 
