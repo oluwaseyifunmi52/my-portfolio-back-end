@@ -24,7 +24,7 @@ app.use(
     cors({
         origin: [
             "http://localhost:5174",
-            "my-portfolio-two-kohl-99.vercel.app",
+            "https://my-portfolio-two-kohl-99.vercel.app",
         ],
 
         methods: [
@@ -52,6 +52,14 @@ app.get("/", (req, res) => {
     res.json({
         success: true,
         message: "Portfolio Backend API is running",
+    });
+});
+
+// API health check
+app.get("/api", (req, res) => {
+    res.json({
+        success: true,
+        message: "Portfolio API is running",
     });
 });
 
