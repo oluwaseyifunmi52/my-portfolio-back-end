@@ -19,14 +19,32 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-// Middleware
+// CORS
 app.use(
     cors({
-        origin: process.env.CLIENT_URL,
+        origin: [
+            "http://localhost:5174",
+            "my-portfolio-two-kohl-99.vercel.app",
+        ],
+
+        methods: [
+            "GET",
+            "POST",
+            "PUT",
+            "PATCH",
+            "DELETE",
+        ],
+
+        allowedHeaders: [
+            "Content-Type",
+            "Authorization",
+        ],
+
         credentials: true,
     })
 );
 
+// Body parser
 app.use(express.json());
 
 // Health check
@@ -45,16 +63,21 @@ app.use("/api/newsletter", newsletterRoutes);
 // Error middleware
 app.use(errorMiddleware);
 
-// Start server after MongoDB connection
+// Start server
 const startServer = async () => {
     try {
         await connectDB();
 
         app.listen(PORT, () => {
-            console.log(`Server running on port ${PORT}`);
+            console.log(
+                `Server running on port ${PORT}`
+            );
         });
     } catch (error) {
-        console.error(`Failed to start server: ${error.message}`);
+        console.error(
+            `Failed to start server: ${error.message}`
+        );
+
         process.exit(1);
     }
 };
