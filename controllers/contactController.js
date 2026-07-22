@@ -3,6 +3,8 @@ import transporter from "../config/mailer.js";
 
 export const submitContactForm = async (req, res, next) => {
     try {
+        console.log("1. Contact request received");
+
         const {
             name,
             email,
@@ -10,7 +12,6 @@ export const submitContactForm = async (req, res, next) => {
             message,
         } = req.body;
 
-        // Validate required fields
         if (!name || !email || !message) {
             return res.status(400).json({
                 success: false,
@@ -18,7 +19,8 @@ export const submitContactForm = async (req, res, next) => {
             });
         }
 
-        // Save message to MongoDB
+        console.log("2. Saving contact to MongoDB");
+
         const contact = await Contact.create({
             name,
             email,
@@ -26,7 +28,10 @@ export const submitContactForm = async (req, res, next) => {
             message,
         });
 
-        // Send email notification
+        console.log("3. Contact saved successfully");
+
+        console.log("4. Sending email");
+
         await transporter.sendMail({
             from: `"Portfolio Contact Form" <${process.env.EMAIL_USER}>`,
             to: process.env.EMAIL_USER,
@@ -45,13 +50,16 @@ export const submitContactForm = async (req, res, next) => {
             `,
         });
 
-        res.status(201).json({
+        console.log("5. Email sent successfully");
+
+        return res.status(201).json({
             success: true,
             message: "Your message has been sent successfully.",
             data: contact,
         });
 
     } catch (error) {
+        console.error("CONTACT ERROR:", error);
         next(error);
     }
 };
