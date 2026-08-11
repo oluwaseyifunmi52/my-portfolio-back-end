@@ -1,16 +1,12 @@
 {
   "name": "blog-api",
   "version": "1.0.0",
-  "description": "Production-ready Blog API with PostgreSQL, Prisma, JWT Auth, RBAC",
+  "description": "Production-ready Blog API with MongoDB, Mongoose, JWT Auth, RBAC",
   "type": "module",
-  "main": "src/server.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/server.js",
-    "start": "node src/server.js",
-    "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate dev",
-    "prisma:studio": "prisma studio",
-    "prisma:deploy": "prisma migrate deploy",
+    "dev": "nodemon index.js",
+    "start": "node index.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
@@ -20,16 +16,16 @@
   "keywords": [
     "blog",
     "api",
-    "postgresql",
-    "prisma",
+    "mongodb",
+    "mongoose",
     "express",
     "jwt"
   ],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^5.10.0",
     "bcryptjs": "^2.4.3",
+    "mongoose": "^8.0.0",
     "compression": "^1.8.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -53,7 +49,6 @@
     "eslint": "^9.0.0",
     "globals": "^15.0.0",
     "nodemon": "^3.1.0",
-    "prisma": "^5.10.0",
     "supertest": "^7.0.0",
     "vitest": "^1.5.0"
   }
